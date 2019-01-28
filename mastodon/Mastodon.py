@@ -2105,24 +2105,9 @@ class Mastodon:
                 if json_object[key] == 'False':
                     json_object[key] = False
         return json_object
-    
-    @staticmethod
-    def __json_strnum_to_bignum(json_object):
-        """
-        Converts json string numerals to native python bignums.
-        """
-        for key in ('id', 'week', 'in_reply_to_id', 'in_reply_to_account_id', 'logins', 'registrations', 'statuses'):
-            if (key in json_object and isinstance(json_object[key], six.text_type)):
-                try:
-                    json_object[key] = int(json_object[key])
-                except ValueError:
-                    pass
-
-        return json_object
-    
+        
     @staticmethod
     def __json_hooks(json_object):
-        json_object = Mastodon.__json_strnum_to_bignum(json_object)        
         json_object = Mastodon.__json_date_parse(json_object)
         json_object = Mastodon.__json_truefalse_parse(json_object)
         json_object = Mastodon.__json_allow_dict_attrs(json_object)
